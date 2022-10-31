@@ -1,4 +1,4 @@
-# Dictionary application based on Node
+# Dictionary application based on Node / MongoDB / Express / React 
 # 
 
 ## How to start
