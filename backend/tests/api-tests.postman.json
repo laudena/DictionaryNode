@@ -1,0 +1,1900 @@
+{
+  "variables": [],
+  "info": {
+    "name": "Conduit API Tests",
+    "_postman_id": "dda3e595-02d7-bf12-2a43-3daea0970192",
+    "description": "Collection for testing the Conduit API\n\nhttps://github.com/gothinkster/realworld",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "word": [{
+      "name": "Auth",
+      "description": "",
+      "word": [{
+          "name": "Register",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "if (!(environment.isIntegrationTest)) {",
+                "var responseJSON = JSON.parse(responseBody);",
+                "",
+                "tests['Response contains \"user\" property'] = responseJSON.hasOwnProperty('user');",
+                "",
+                "var user = responseJSON.user || {};",
+                "",
+                "tests['User has \"email\" property'] = user.hasOwnProperty('email');",
+                "tests['User has \"username\" property'] = user.hasOwnProperty('username');",
+                "tests['User has \"token\" property'] = user.hasOwnProperty('token');",
+                "}",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": "{{apiUrl}}/users",
+            "method": "POST",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"user\":{\"email\":\"john@jacob.com\", \"password\":\"johnnyjacob\", \"username\":\"johnjacob\"}}"
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var responseJSON = JSON.parse(responseBody);",
+                "",
+                "tests['Response contains \"user\" property'] = responseJSON.hasOwnProperty('user');",
+                "",
+                "var user = responseJSON.user || {};",
+                "",
+                "tests['User has \"email\" property'] = user.hasOwnProperty('email');",
+                "tests['User has \"username\" property'] = user.hasOwnProperty('username');",
+                "tests['User has \"token\" property'] = user.hasOwnProperty('token');",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": "{{apiUrl}}/users/login",
+            "method": "POST",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"user\":{\"email\":\"john@jacob.com\", \"password\":\"johnnyjacob\"}}"
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Login and Remember Token",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var responseJSON = JSON.parse(responseBody);",
+                "",
+                "tests['Response contains \"user\" property'] = responseJSON.hasOwnProperty('user');",
+                "",
+                "var user = responseJSON.user || {};",
+                "",
+                "tests['User has \"email\" property'] = user.hasOwnProperty('email');",
+                "tests['User has \"username\" property'] = user.hasOwnProperty('username');",
+                "tests['User has \"token\" property'] = user.hasOwnProperty('token');",
+                "",
+                "if(tests['User has \"token\" property']){",
+                "    postman.setEnvironmentVariable('token', user.token);",
+                "}",
+                "",
+                "tests['Environment variable \"token\" has been set'] = environment.token === user.token;",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": "{{apiUrl}}/users/login",
+            "method": "POST",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"user\":{\"email\":\"john@jacob.com\", \"password\":\"johnnyjacob\"}}"
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Current User",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var responseJSON = JSON.parse(responseBody);",
+                "",
+                "tests['Response contains \"user\" property'] = responseJSON.hasOwnProperty('user');",
+                "",
+                "var user = responseJSON.user || {};",
+                "",
+                "tests['User has \"email\" property'] = user.hasOwnProperty('email');",
+                "tests['User has \"username\" property'] = user.hasOwnProperty('username');",
+                "tests['User has \"token\" property'] = user.hasOwnProperty('token');",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": "{{apiUrl}}/user",
+            "method": "GET",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "description": ""
+              }
+            ],
+            "body": {},
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Update User",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var responseJSON = JSON.parse(responseBody);",
+                "",
+                "tests['Response contains \"user\" property'] = responseJSON.hasOwnProperty('user');",
+                "",
+                "var user = responseJSON.user || {};",
+                "",
+                "tests['User has \"email\" property'] = user.hasOwnProperty('email');",
+                "tests['User has \"username\" property'] = user.hasOwnProperty('username');",
+                "tests['User has \"token\" property'] = user.hasOwnProperty('token');",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": "{{apiUrl}}/user",
+            "method": "PUT",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"user\":{\"email\":\"john@jacob.com\"}}"
+            },
+            "description": ""
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Words with authentication",
+      "description": "",
+      "word": [{
+          "name": "Feed",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var is200Response = responseCode.code === 200;",
+                "",
+                "tests['Response code is 200 OK'] = is200Response;",
+                "",
+                "if(is200Response){",
+                "    var responseJSON = JSON.parse(responseBody);",
+                "",
+                "    tests['Response contains \"words\" property'] = responseJSON.hasOwnProperty('words');",
+                "    tests['Response contains \"wordsCount\" property'] = responseJSON.hasOwnProperty('wordsCount');",
+                "    tests['wordsCount is an integer'] = Number.isInteger(responseJSON.wordsCount);",
+                "",
+                "    if(responseJSON.words.length){",
+                "        var word = responseJSON.words[0];",
+                "",
+                "        tests['Word has \"title\" property'] = word.hasOwnProperty('title');",
+                "        tests['Word has \"slug\" property'] = word.hasOwnProperty('slug');",
+                "        tests['Word has \"body\" property'] = word.hasOwnProperty('body');",
+                "        tests['Word has \"createdAt\" property'] = word.hasOwnProperty('createdAt');",
+                "        tests['Word\\'s \"createdAt\" property is an ISO 8601 timestamp'] = new Date(word.createdAt).toISOString() === word.createdAt;",
+                "        tests['Word has \"updatedAt\" property'] = word.hasOwnProperty('updatedAt');",
+                "        tests['Word\\'s \"updatedAt\" property is an ISO 8601 timestamp'] = new Date(word.updatedAt).toISOString() === word.updatedAt;",
+                "        tests['Word has \"description\" property'] = word.hasOwnProperty('description');",
+                "        tests['Word has \"tagList\" property'] = word.hasOwnProperty('tagList');",
+                "        tests['Word\\'s \"tagList\" property is an Array'] = Array.isArray(word.tagList);",
+                "        tests['Word has \"seller\" property'] = word.hasOwnProperty('seller');",
+                "        tests['Word has \"favorited\" property'] = word.hasOwnProperty('favorited');",
+                "        tests['Word has \"favoritesCount\" property'] = word.hasOwnProperty('favoritesCount');",
+                "        tests['favoritesCount is an integer'] = Number.isInteger(word.favoritesCount);",
+                "    } else {",
+                "        tests['wordsCount is 0 when feed is empty'] = responseJSON.wordsCount === 0;",
+                "    }",
+                "}",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": "{{apiUrl}}/words/feed",
+            "method": "GET",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "All Words",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var is200Response = responseCode.code === 200;",
+                "",
+                "tests['Response code is 200 OK'] = is200Response;",
+                "",
+                "if(is200Response){",
+                "    var responseJSON = JSON.parse(responseBody);",
+                "",
+                "    tests['Response contains \"words\" property'] = responseJSON.hasOwnProperty('words');",
+                "    tests['Response contains \"wordsCount\" property'] = responseJSON.hasOwnProperty('wordsCount');",
+                "    tests['wordsCount is an integer'] = Number.isInteger(responseJSON.wordsCount);",
+                "",
+                "    if(responseJSON.words.length){",
+                "        var word = responseJSON.words[0];",
+                "",
+                "        tests['Word has \"title\" property'] = word.hasOwnProperty('title');",
+                "        tests['Word has \"slug\" property'] = word.hasOwnProperty('slug');",
+                "        tests['Word has \"body\" property'] = word.hasOwnProperty('body');",
+                "        tests['Word has \"createdAt\" property'] = word.hasOwnProperty('createdAt');",
+                "        tests['Word\\'s \"createdAt\" property is an ISO 8601 timestamp'] = new Date(word.createdAt).toISOString() === word.createdAt;",
+                "        tests['Word has \"updatedAt\" property'] = word.hasOwnProperty('updatedAt');",
+                "        tests['Word\\'s \"updatedAt\" property is an ISO 8601 timestamp'] = new Date(word.updatedAt).toISOString() === word.updatedAt;",
+                "        tests['Word has \"description\" property'] = word.hasOwnProperty('description');",
+                "        tests['Word has \"tagList\" property'] = word.hasOwnProperty('tagList');",
+                "        tests['Word\\'s \"tagList\" property is an Array'] = Array.isArray(word.tagList);",
+                "        tests['Word has \"seller\" property'] = word.hasOwnProperty('seller');",
+                "        tests['Word has \"favorited\" property'] = word.hasOwnProperty('favorited');",
+                "        tests['Word has \"favoritesCount\" property'] = word.hasOwnProperty('favoritesCount');",
+                "        tests['favoritesCount is an integer'] = Number.isInteger(word.favoritesCount);",
+                "    } else {",
+                "        tests['wordsCount is 0 when feed is empty'] = responseJSON.wordsCount === 0;",
+                "    }",
+                "}",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": "{{apiUrl}}/words",
+            "method": "GET",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "All Words with auth",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var is200Response = responseCode.code === 200;",
+                "",
+                "tests['Response code is 200 OK'] = is200Response;",
+                "",
+                "if(is200Response){",
+                "    var responseJSON = JSON.parse(responseBody);",
+                "",
+                "    tests['Response contains \"words\" property'] = responseJSON.hasOwnProperty('words');",
+                "    tests['Response contains \"wordsCount\" property'] = responseJSON.hasOwnProperty('wordsCount');",
+                "    tests['wordsCount is an integer'] = Number.isInteger(responseJSON.wordsCount);",
+                "",
+                "    if(responseJSON.words.length){",
+                "        var word = responseJSON.words[0];",
+                "",
+                "        tests['Word has \"title\" property'] = word.hasOwnProperty('title');",
+                "        tests['Word has \"slug\" property'] = word.hasOwnProperty('slug');",
+                "        tests['Word has \"body\" property'] = word.hasOwnProperty('body');",
+                "        tests['Word has \"createdAt\" property'] = word.hasOwnProperty('createdAt');",
+                "        tests['Word\\'s \"createdAt\" property is an ISO 8601 timestamp'] = new Date(word.createdAt).toISOString() === word.createdAt;",
+                "        tests['Word has \"updatedAt\" property'] = word.hasOwnProperty('updatedAt');",
+                "        tests['Word\\'s \"updatedAt\" property is an ISO 8601 timestamp'] = new Date(word.updatedAt).toISOString() === word.updatedAt;",
+                "        tests['Word has \"description\" property'] = word.hasOwnProperty('description');",
+                "        tests['Word has \"tagList\" property'] = word.hasOwnProperty('tagList');",
+                "        tests['Word\\'s \"tagList\" property is an Array'] = Array.isArray(word.tagList);",
+                "        tests['Word has \"seller\" property'] = word.hasOwnProperty('seller');",
+                "        tests['Word has \"favorited\" property'] = word.hasOwnProperty('favorited');",
+                "        tests['Word has \"favoritesCount\" property'] = word.hasOwnProperty('favoritesCount');",
+                "        tests['favoritesCount is an integer'] = Number.isInteger(word.favoritesCount);",
+                "    } else {",
+                "        tests['wordsCount is 0 when feed is empty'] = responseJSON.wordsCount === 0;",
+                "    }",
+                "}",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": "{{apiUrl}}/words",
+            "method": "GET",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Words by Author",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var is200Response = responseCode.code === 200;",
+                "",
+                "tests['Response code is 200 OK'] = is200Response;",
+                "",
+                "if(is200Response){",
+                "    var responseJSON = JSON.parse(responseBody);",
+                "",
+                "    tests['Response contains \"words\" property'] = responseJSON.hasOwnProperty('words');",
+                "    tests['Response contains \"wordsCount\" property'] = responseJSON.hasOwnProperty('wordsCount');",
+                "    tests['wordsCount is an integer'] = Number.isInteger(responseJSON.wordsCount);",
+                "",
+                "    if(responseJSON.words.length){",
+                "        var word = responseJSON.words[0];",
+                "",
+                "        tests['Word has \"title\" property'] = word.hasOwnProperty('title');",
+                "        tests['Word has \"slug\" property'] = word.hasOwnProperty('slug');",
+                "        tests['Word has \"body\" property'] = word.hasOwnProperty('body');",
+                "        tests['Word has \"createdAt\" property'] = word.hasOwnProperty('createdAt');",
+                "        tests['Word\\'s \"createdAt\" property is an ISO 8601 timestamp'] = new Date(word.createdAt).toISOString() === word.createdAt;",
+                "        tests['Word has \"updatedAt\" property'] = word.hasOwnProperty('updatedAt');",
+                "        tests['Word\\'s \"updatedAt\" property is an ISO 8601 timestamp'] = new Date(word.updatedAt).toISOString() === word.updatedAt;",
+                "        tests['Word has \"description\" property'] = word.hasOwnProperty('description');",
+                "        tests['Word has \"tagList\" property'] = word.hasOwnProperty('tagList');",
+                "        tests['Word\\'s \"tagList\" property is an Array'] = Array.isArray(word.tagList);",
+                "        tests['Word has \"seller\" property'] = word.hasOwnProperty('seller');",
+                "        tests['Word has \"favorited\" property'] = word.hasOwnProperty('favorited');",
+                "        tests['Word has \"favoritesCount\" property'] = word.hasOwnProperty('favoritesCount');",
+                "        tests['favoritesCount is an integer'] = Number.isInteger(word.favoritesCount);",
+                "    } else {",
+                "        tests['wordsCount is 0 when feed is empty'] = responseJSON.wordsCount === 0;",
+                "    }",
+                "}",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": {
+              "raw": "{{apiUrl}}/words?seller=johnjacob",
+              "host": [
+                "{{apiUrl}}"
+              ],
+              "path": [
+                "words"
+              ],
+              "query": [{
+                "key": "seller",
+                "value": "johnjacob"
+              }],
+              "variable": []
+            },
+            "method": "GET",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Words by Author with auth",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var is200Response = responseCode.code === 200;",
+                "",
+                "tests['Response code is 200 OK'] = is200Response;",
+                "",
+                "if(is200Response){",
+                "    var responseJSON = JSON.parse(responseBody);",
+                "",
+                "    tests['Response contains \"words\" property'] = responseJSON.hasOwnProperty('words');",
+                "    tests['Response contains \"wordsCount\" property'] = responseJSON.hasOwnProperty('wordsCount');",
+                "    tests['wordsCount is an integer'] = Number.isInteger(responseJSON.wordsCount);",
+                "",
+                "    if(responseJSON.words.length){",
+                "        var word = responseJSON.words[0];",
+                "",
+                "        tests['Word has \"title\" property'] = word.hasOwnProperty('title');",
+                "        tests['Word has \"slug\" property'] = word.hasOwnProperty('slug');",
+                "        tests['Word has \"body\" property'] = word.hasOwnProperty('body');",
+                "        tests['Word has \"createdAt\" property'] = word.hasOwnProperty('createdAt');",
+                "        tests['Word\\'s \"createdAt\" property is an ISO 8601 timestamp'] = new Date(word.createdAt).toISOString() === word.createdAt;",
+                "        tests['Word has \"updatedAt\" property'] = word.hasOwnProperty('updatedAt');",
+                "        tests['Word\\'s \"updatedAt\" property is an ISO 8601 timestamp'] = new Date(word.updatedAt).toISOString() === word.updatedAt;",
+                "        tests['Word has \"description\" property'] = word.hasOwnProperty('description');",
+                "        tests['Word has \"tagList\" property'] = word.hasOwnProperty('tagList');",
+                "        tests['Word\\'s \"tagList\" property is an Array'] = Array.isArray(word.tagList);",
+                "        tests['Word has \"seller\" property'] = word.hasOwnProperty('seller');",
+                "        tests['Word has \"favorited\" property'] = word.hasOwnProperty('favorited');",
+                "        tests['Word has \"favoritesCount\" property'] = word.hasOwnProperty('favoritesCount');",
+                "        tests['favoritesCount is an integer'] = Number.isInteger(word.favoritesCount);",
+                "    } else {",
+                "        tests['wordsCount is 0 when feed is empty'] = responseJSON.wordsCount === 0;",
+                "    }",
+                "}",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": {
+              "raw": "{{apiUrl}}/words?seller=johnjacob",
+              "host": [
+                "{{apiUrl}}"
+              ],
+              "path": [
+                "words"
+              ],
+              "query": [{
+                "key": "seller",
+                "value": "johnjacob",
+                "equals": true,
+                "description": ""
+              }],
+              "variable": []
+            },
+            "method": "GET",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "description": ""
+              }
+            ],
+            "body": {},
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Words Favorited by Username",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var is200Response = responseCode.code === 200;",
+                "",
+                "tests['Response code is 200 OK'] = is200Response;",
+                "",
+                "if(is200Response){",
+                "    var responseJSON = JSON.parse(responseBody);",
+                "    ",
+                "    tests['Response contains \"words\" property'] = responseJSON.hasOwnProperty('words');",
+                "    tests['Response contains \"wordsCount\" property'] = responseJSON.hasOwnProperty('wordsCount');",
+                "    tests['wordsCount is an integer'] = Number.isInteger(responseJSON.wordsCount);",
+                "",
+                "    if(responseJSON.words.length){",
+                "        var word = responseJSON.words[0];",
+                "",
+                "        tests['Word has \"title\" property'] = word.hasOwnProperty('title');",
+                "        tests['Word has \"slug\" property'] = word.hasOwnProperty('slug');",
+                "        tests['Word has \"body\" property'] = word.hasOwnProperty('body');",
+                "        tests['Word has \"createdAt\" property'] = word.hasOwnProperty('createdAt');",
+                "        tests['Word\\'s \"createdAt\" property is an ISO 8601 timestamp'] = new Date(word.createdAt).toISOString() === word.createdAt;",
+                "        tests['Word has \"updatedAt\" property'] = word.hasOwnProperty('updatedAt');",
+                "        tests['Word\\'s \"updatedAt\" property is an ISO 8601 timestamp'] = new Date(word.updatedAt).toISOString() === word.updatedAt;",
+                "        tests['Word has \"description\" property'] = word.hasOwnProperty('description');",
+                "        tests['Word has \"tagList\" property'] = word.hasOwnProperty('tagList');",
+                "        tests['Word\\'s \"tagList\" property is an Array'] = Array.isArray(word.tagList);",
+                "        tests['Word has \"seller\" property'] = word.hasOwnProperty('seller');",
+                "        tests['Word has \"favorited\" property'] = word.hasOwnProperty('favorited');",
+                "        tests['Word has \"favoritesCount\" property'] = word.hasOwnProperty('favoritesCount');",
+                "        tests['favoritesCount is an integer'] = Number.isInteger(word.favoritesCount);",
+                "    } else {",
+                "        tests['wordsCount is 0 when feed is empty'] = responseJSON.wordsCount === 0;",
+                "    }",
+                "}",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": {
+              "raw": "{{apiUrl}}/words?favorited=jane",
+              "host": [
+                "{{apiUrl}}"
+              ],
+              "path": [
+                "words"
+              ],
+              "query": [{
+                "key": "favorited",
+                "value": "jane"
+              }],
+              "variable": []
+            },
+            "method": "GET",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Words Favorited by Username with auth",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var is200Response = responseCode.code === 200;",
+                "",
+                "tests['Response code is 200 OK'] = is200Response;",
+                "",
+                "if(is200Response){",
+                "    var responseJSON = JSON.parse(responseBody);",
+                "    ",
+                "    tests['Response contains \"words\" property'] = responseJSON.hasOwnProperty('words');",
+                "    tests['Response contains \"wordsCount\" property'] = responseJSON.hasOwnProperty('wordsCount');",
+                "    tests['wordsCount is an integer'] = Number.isInteger(responseJSON.wordsCount);",
+                "",
+                "    if(responseJSON.words.length){",
+                "        var word = responseJSON.words[0];",
+                "",
+                "        tests['Word has \"title\" property'] = word.hasOwnProperty('title');",
+                "        tests['Word has \"slug\" property'] = word.hasOwnProperty('slug');",
+                "        tests['Word has \"body\" property'] = word.hasOwnProperty('body');",
+                "        tests['Word has \"createdAt\" property'] = word.hasOwnProperty('createdAt');",
+                "        tests['Word\\'s \"createdAt\" property is an ISO 8601 timestamp'] = new Date(word.createdAt).toISOString() === word.createdAt;",
+                "        tests['Word has \"updatedAt\" property'] = word.hasOwnProperty('updatedAt');",
+                "        tests['Word\\'s \"updatedAt\" property is an ISO 8601 timestamp'] = new Date(word.updatedAt).toISOString() === word.updatedAt;",
+                "        tests['Word has \"description\" property'] = word.hasOwnProperty('description');",
+                "        tests['Word has \"tagList\" property'] = word.hasOwnProperty('tagList');",
+                "        tests['Word\\'s \"tagList\" property is an Array'] = Array.isArray(word.tagList);",
+                "        tests['Word has \"seller\" property'] = word.hasOwnProperty('seller');",
+                "        tests['Word has \"favorited\" property'] = word.hasOwnProperty('favorited');",
+                "        tests['Word has \"favoritesCount\" property'] = word.hasOwnProperty('favoritesCount');",
+                "        tests['favoritesCount is an integer'] = Number.isInteger(word.favoritesCount);",
+                "    } else {",
+                "        tests['wordsCount is 0 when feed is empty'] = responseJSON.wordsCount === 0;",
+                "    }",
+                "}",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": {
+              "raw": "{{apiUrl}}/words?favorited=jane",
+              "host": [
+                "{{apiUrl}}"
+              ],
+              "path": [
+                "words"
+              ],
+              "query": [{
+                "key": "favorited",
+                "value": "jane"
+              }],
+              "variable": []
+            },
+            "method": "GET",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Words by Tag",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var is200Response = responseCode.code === 200;",
+                "",
+                "tests['Response code is 200 OK'] = is200Response;",
+                "",
+                "if(is200Response){",
+                "    var responseJSON = JSON.parse(responseBody);",
+                "",
+                "    tests['Response contains \"words\" property'] = responseJSON.hasOwnProperty('words');",
+                "    tests['Response contains \"wordsCount\" property'] = responseJSON.hasOwnProperty('wordsCount');",
+                "    tests['wordsCount is an integer'] = Number.isInteger(responseJSON.wordsCount);",
+                "",
+                "    if(responseJSON.words.length){",
+                "        var word = responseJSON.words[0];",
+                "",
+                "        tests['Word has \"title\" property'] = word.hasOwnProperty('title');",
+                "        tests['Word has \"slug\" property'] = word.hasOwnProperty('slug');",
+                "        tests['Word has \"body\" property'] = word.hasOwnProperty('body');",
+                "        tests['Word has \"createdAt\" property'] = word.hasOwnProperty('createdAt');",
+                "        tests['Word\\'s \"createdAt\" property is an ISO 8601 timestamp'] = new Date(word.createdAt).toISOString() === word.createdAt;",
+                "        tests['Word has \"updatedAt\" property'] = word.hasOwnProperty('updatedAt');",
+                "        tests['Word\\'s \"updatedAt\" property is an ISO 8601 timestamp'] = new Date(word.updatedAt).toISOString() === word.updatedAt;",
+                "        tests['Word has \"description\" property'] = word.hasOwnProperty('description');",
+                "        tests['Word has \"tagList\" property'] = word.hasOwnProperty('tagList');",
+                "        tests['Word\\'s \"tagList\" property is an Array'] = Array.isArray(word.tagList);",
+                "        tests['Word has \"seller\" property'] = word.hasOwnProperty('seller');",
+                "        tests['Word has \"favorited\" property'] = word.hasOwnProperty('favorited');",
+                "        tests['Word has \"favoritesCount\" property'] = word.hasOwnProperty('favoritesCount');",
+                "        tests['favoritesCount is an integer'] = Number.isInteger(word.favoritesCount);",
+                "    } else {",
+                "        tests['wordsCount is 0 when feed is empty'] = responseJSON.wordsCount === 0;",
+                "    }",
+                "}",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": {
+              "raw": "{{apiUrl}}/words?tag=dragons",
+              "host": [
+                "{{apiUrl}}"
+              ],
+              "path": [
+                "words"
+              ],
+              "query": [{
+                "key": "tag",
+                "value": "dragons"
+              }],
+              "variable": []
+            },
+            "method": "GET",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Create Word",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var responseJSON = JSON.parse(responseBody);",
+                "",
+                "tests['Response contains \"word\" property'] = responseJSON.hasOwnProperty('word');",
+                "",
+                "var word = responseJSON.word || {};",
+                "",
+                "tests['Word has \"title\" property'] = word.hasOwnProperty('title');",
+                "tests['Word has \"slug\" property'] = word.hasOwnProperty('slug');",
+                "if(tests['Word has \"slug\" property']){",
+                "    postman.setEnvironmentVariable('slug', word.slug);",
+                "}",
+                "tests['Word has \"body\" property'] = word.hasOwnProperty('body');",
+                "tests['Word has \"createdAt\" property'] = word.hasOwnProperty('createdAt');",
+                "tests['Word\\'s \"createdAt\" property is an ISO 8601 timestamp'] = new Date(word.createdAt).toISOString() === word.createdAt;",
+                "tests['Word has \"updatedAt\" property'] = word.hasOwnProperty('updatedAt');",
+                "tests['Word\\'s \"updatedAt\" property is an ISO 8601 timestamp'] = new Date(word.updatedAt).toISOString() === word.updatedAt;",
+                "tests['Word has \"description\" property'] = word.hasOwnProperty('description');",
+                "tests['Word has \"tagList\" property'] = word.hasOwnProperty('tagList');",
+                "tests['Word\\'s \"tagList\" property is an Array'] = Array.isArray(word.tagList);",
+                "tests['Word has \"seller\" property'] = word.hasOwnProperty('seller');",
+                "tests['Word has \"favorited\" property'] = word.hasOwnProperty('favorited');",
+                "tests['Word has \"favoritesCount\" property'] = word.hasOwnProperty('favoritesCount');",
+                "tests['favoritesCount is an integer'] = Number.isInteger(word.favoritesCount);",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": "{{apiUrl}}/words",
+            "method": "POST",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"word\":{\"title\":\"How to train your dragon\", \"description\":\"Ever wonder how?\", \"body\":\"Very carefully.\", \"tagList\":[\"dragons\",\"training\"]}}"
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Single Word by slug",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var responseJSON = JSON.parse(responseBody);",
+                "",
+                "tests['Response contains \"word\" property'] = responseJSON.hasOwnProperty('word');",
+                "",
+                "var word = responseJSON.word || {};",
+                "",
+                "tests['Word has \"title\" property'] = word.hasOwnProperty('title');",
+                "tests['Word has \"slug\" property'] = word.hasOwnProperty('slug');",
+                "tests['Word has \"body\" property'] = word.hasOwnProperty('body');",
+                "tests['Word has \"createdAt\" property'] = word.hasOwnProperty('createdAt');",
+                "tests['Word\\'s \"createdAt\" property is an ISO 8601 timestamp'] = new Date(word.createdAt).toISOString() === word.createdAt;",
+                "tests['Word has \"updatedAt\" property'] = word.hasOwnProperty('updatedAt');",
+                "tests['Word\\'s \"updatedAt\" property is an ISO 8601 timestamp'] = new Date(word.updatedAt).toISOString() === word.updatedAt;",
+                "tests['Word has \"description\" property'] = word.hasOwnProperty('description');",
+                "tests['Word has \"tagList\" property'] = word.hasOwnProperty('tagList');",
+                "tests['Word\\'s \"tagList\" property is an Array'] = Array.isArray(word.tagList);",
+                "tests['Word has \"seller\" property'] = word.hasOwnProperty('seller');",
+                "tests['Word has \"favorited\" property'] = word.hasOwnProperty('favorited');",
+                "tests['Word has \"favoritesCount\" property'] = word.hasOwnProperty('favoritesCount');",
+                "tests['favoritesCount is an integer'] = Number.isInteger(word.favoritesCount);",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": "{{apiUrl}}/words/{{slug}}",
+            "method": "GET",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "description": ""
+              }
+            ],
+            "body": {},
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Update Word",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "if (!(environment.isIntegrationTest)) {",
+                "var responseJSON = JSON.parse(responseBody);",
+                "",
+                "tests['Response contains \"word\" property'] = responseJSON.hasOwnProperty('word');",
+                "",
+                "var word = responseJSON.word || {};",
+                "",
+                "tests['Word has \"title\" property'] = word.hasOwnProperty('title');",
+                "tests['Word has \"slug\" property'] = word.hasOwnProperty('slug');",
+                "tests['Word has \"body\" property'] = word.hasOwnProperty('body');",
+                "tests['Word has \"createdAt\" property'] = word.hasOwnProperty('createdAt');",
+                "tests['Word\\'s \"createdAt\" property is an ISO 8601 timestamp'] = new Date(word.createdAt).toISOString() === word.createdAt;",
+                "tests['Word has \"updatedAt\" property'] = word.hasOwnProperty('updatedAt');",
+                "tests['Word\\'s \"updatedAt\" property is an ISO 8601 timestamp'] = new Date(word.updatedAt).toISOString() === word.updatedAt;",
+                "tests['Word has \"description\" property'] = word.hasOwnProperty('description');",
+                "tests['Word has \"tagList\" property'] = word.hasOwnProperty('tagList');",
+                "tests['Word\\'s \"tagList\" property is an Array'] = Array.isArray(word.tagList);",
+                "tests['Word has \"seller\" property'] = word.hasOwnProperty('seller');",
+                "tests['Word has \"favorited\" property'] = word.hasOwnProperty('favorited');",
+                "tests['Word has \"favoritesCount\" property'] = word.hasOwnProperty('favoritesCount');",
+                "tests['favoritesCount is an integer'] = Number.isInteger(word.favoritesCount);",
+                "}",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": "{{apiUrl}}/words/{{slug}}",
+            "method": "PUT",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"word\":{\"body\":\"With two hands\"}}"
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Favorite Word",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var responseJSON = JSON.parse(responseBody);",
+                "",
+                "tests['Response contains \"word\" property'] = responseJSON.hasOwnProperty('word');",
+                "",
+                "var word = responseJSON.word || {};",
+                "",
+                "tests['Word has \"title\" property'] = word.hasOwnProperty('title');",
+                "tests['Word has \"slug\" property'] = word.hasOwnProperty('slug');",
+                "tests['Word has \"body\" property'] = word.hasOwnProperty('body');",
+                "tests['Word has \"createdAt\" property'] = word.hasOwnProperty('createdAt');",
+                "tests['Word\\'s \"createdAt\" property is an ISO 8601 timestamp'] = new Date(word.createdAt).toISOString() === word.createdAt;",
+                "tests['Word has \"updatedAt\" property'] = word.hasOwnProperty('updatedAt');",
+                "tests['Word\\'s \"updatedAt\" property is an ISO 8601 timestamp'] = new Date(word.updatedAt).toISOString() === word.updatedAt;",
+                "tests['Word has \"description\" property'] = word.hasOwnProperty('description');",
+                "tests['Word has \"tagList\" property'] = word.hasOwnProperty('tagList');",
+                "tests['Word\\'s \"tagList\" property is an Array'] = Array.isArray(word.tagList);",
+                "tests['Word has \"seller\" property'] = word.hasOwnProperty('seller');",
+                "tests['Word has \"favorited\" property'] = word.hasOwnProperty('favorited');",
+                "tests[\"Word's 'favorited' property is true\"] = word.favorited === true;",
+                "tests['Word has \"favoritesCount\" property'] = word.hasOwnProperty('favoritesCount');",
+                "tests['favoritesCount is an integer'] = Number.isInteger(word.favoritesCount);",
+                "tests[\"Word's 'favoritesCount' property is greater than 0\"] = word.favoritesCount > 0;",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": "{{apiUrl}}/words/{{slug}}/favorite",
+            "method": "POST",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Unfavorite Word",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var responseJSON = JSON.parse(responseBody);",
+                "",
+                "tests['Response contains \"word\" property'] = responseJSON.hasOwnProperty('word');",
+                "",
+                "var word = responseJSON.word || {};",
+                "",
+                "tests['Word has \"title\" property'] = word.hasOwnProperty('title');",
+                "tests['Word has \"slug\" property'] = word.hasOwnProperty('slug');",
+                "tests['Word has \"body\" property'] = word.hasOwnProperty('body');",
+                "tests['Word has \"createdAt\" property'] = word.hasOwnProperty('createdAt');",
+                "tests['Word\\'s \"createdAt\" property is an ISO 8601 timestamp'] = new Date(word.createdAt).toISOString() === word.createdAt;",
+                "tests['Word has \"updatedAt\" property'] = word.hasOwnProperty('updatedAt');",
+                "tests['Word\\'s \"updatedAt\" property is an ISO 8601 timestamp'] = new Date(word.updatedAt).toISOString() === word.updatedAt;",
+                "tests['Word has \"description\" property'] = word.hasOwnProperty('description');",
+                "tests['Word has \"tagList\" property'] = word.hasOwnProperty('tagList');",
+                "tests['Word\\'s \"tagList\" property is an Array'] = Array.isArray(word.tagList);",
+                "tests['Word has \"seller\" property'] = word.hasOwnProperty('seller');",
+                "tests['Word has \"favorited\" property'] = word.hasOwnProperty('favorited');",
+                "tests['Word has \"favoritesCount\" property'] = word.hasOwnProperty('favoritesCount');",
+                "tests['favoritesCount is an integer'] = Number.isInteger(word.favoritesCount);",
+                "tests[\"Word's \\\"favorited\\\" property is true\"] = word.favorited === false;",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": "{{apiUrl}}/words/{{slug}}/favorite",
+            "method": "DELETE",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "description": ""
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Words",
+      "description": "",
+      "word": [{
+          "name": "All Words",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var is200Response = responseCode.code === 200;",
+                "",
+                "tests['Response code is 200 OK'] = is200Response;",
+                "",
+                "if(is200Response){",
+                "    var responseJSON = JSON.parse(responseBody);",
+                "",
+                "    tests['Response contains \"words\" property'] = responseJSON.hasOwnProperty('words');",
+                "    tests['Response contains \"wordsCount\" property'] = responseJSON.hasOwnProperty('wordsCount');",
+                "    tests['wordsCount is an integer'] = Number.isInteger(responseJSON.wordsCount);",
+                "",
+                "    if(responseJSON.words.length){",
+                "        var word = responseJSON.words[0];",
+                "",
+                "        tests['Word has \"title\" property'] = word.hasOwnProperty('title');",
+                "        tests['Word has \"slug\" property'] = word.hasOwnProperty('slug');",
+                "        tests['Word has \"body\" property'] = word.hasOwnProperty('body');",
+                "        tests['Word has \"createdAt\" property'] = word.hasOwnProperty('createdAt');",
+                "        tests['Word\\'s \"createdAt\" property is an ISO 8601 timestamp'] = new Date(word.createdAt).toISOString() === word.createdAt;",
+                "        tests['Word has \"updatedAt\" property'] = word.hasOwnProperty('updatedAt');",
+                "        tests['Word\\'s \"updatedAt\" property is an ISO 8601 timestamp'] = new Date(word.updatedAt).toISOString() === word.updatedAt;",
+                "        tests['Word has \"description\" property'] = word.hasOwnProperty('description');",
+                "        tests['Word has \"tagList\" property'] = word.hasOwnProperty('tagList');",
+                "        tests['Word\\'s \"tagList\" property is an Array'] = Array.isArray(word.tagList);",
+                "        tests['Word has \"seller\" property'] = word.hasOwnProperty('seller');",
+                "        tests['Word has \"favorited\" property'] = word.hasOwnProperty('favorited');",
+                "        tests['Word has \"favoritesCount\" property'] = word.hasOwnProperty('favoritesCount');",
+                "        tests['favoritesCount is an integer'] = Number.isInteger(word.favoritesCount);",
+                "    } else {",
+                "        tests['wordsCount is 0 when feed is empty'] = responseJSON.wordsCount === 0;",
+                "    }",
+                "}",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": "{{apiUrl}}/words",
+            "method": "GET",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Words by Author",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var is200Response = responseCode.code === 200;",
+                "",
+                "tests['Response code is 200 OK'] = is200Response;",
+                "",
+                "if(is200Response){",
+                "    var responseJSON = JSON.parse(responseBody);",
+                "",
+                "    tests['Response contains \"words\" property'] = responseJSON.hasOwnProperty('words');",
+                "    tests['Response contains \"wordsCount\" property'] = responseJSON.hasOwnProperty('wordsCount');",
+                "    tests['wordsCount is an integer'] = Number.isInteger(responseJSON.wordsCount);",
+                "",
+                "    if(responseJSON.words.length){",
+                "        var word = responseJSON.words[0];",
+                "",
+                "        tests['Word has \"title\" property'] = word.hasOwnProperty('title');",
+                "        tests['Word has \"slug\" property'] = word.hasOwnProperty('slug');",
+                "        tests['Word has \"body\" property'] = word.hasOwnProperty('body');",
+                "        tests['Word has \"createdAt\" property'] = word.hasOwnProperty('createdAt');",
+                "        tests['Word\\'s \"createdAt\" property is an ISO 8601 timestamp'] = new Date(word.createdAt).toISOString() === word.createdAt;",
+                "        tests['Word has \"updatedAt\" property'] = word.hasOwnProperty('updatedAt');",
+                "        tests['Word\\'s \"updatedAt\" property is an ISO 8601 timestamp'] = new Date(word.updatedAt).toISOString() === word.updatedAt;",
+                "        tests['Word has \"description\" property'] = word.hasOwnProperty('description');",
+                "        tests['Word has \"tagList\" property'] = word.hasOwnProperty('tagList');",
+                "        tests['Word\\'s \"tagList\" property is an Array'] = Array.isArray(word.tagList);",
+                "        tests['Word has \"seller\" property'] = word.hasOwnProperty('seller');",
+                "        tests['Word has \"favorited\" property'] = word.hasOwnProperty('favorited');",
+                "        tests['Word has \"favoritesCount\" property'] = word.hasOwnProperty('favoritesCount');",
+                "        tests['favoritesCount is an integer'] = Number.isInteger(word.favoritesCount);",
+                "    } else {",
+                "        tests['wordsCount is 0 when feed is empty'] = responseJSON.wordsCount === 0;",
+                "    }",
+                "}",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": {
+              "raw": "{{apiUrl}}/words?seller=johnjacob",
+              "host": [
+                "{{apiUrl}}"
+              ],
+              "path": [
+                "words"
+              ],
+              "query": [{
+                "key": "seller",
+                "value": "johnjacob"
+              }],
+              "variable": []
+            },
+            "method": "GET",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Words Favorited by Username",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var is200Response = responseCode.code === 200;",
+                "",
+                "tests['Response code is 200 OK'] = is200Response;",
+                "",
+                "if(is200Response){",
+                "    var responseJSON = JSON.parse(responseBody);",
+                "    ",
+                "    tests['Response contains \"words\" property'] = responseJSON.hasOwnProperty('words');",
+                "    tests['Response contains \"wordsCount\" property'] = responseJSON.hasOwnProperty('wordsCount');",
+                "    tests['wordsCount is an integer'] = Number.isInteger(responseJSON.wordsCount);",
+                "",
+                "    if(responseJSON.words.length){",
+                "        var word = responseJSON.words[0];",
+                "",
+                "        tests['Word has \"title\" property'] = word.hasOwnProperty('title');",
+                "        tests['Word has \"slug\" property'] = word.hasOwnProperty('slug');",
+                "        tests['Word has \"body\" property'] = word.hasOwnProperty('body');",
+                "        tests['Word has \"createdAt\" property'] = word.hasOwnProperty('createdAt');",
+                "        tests['Word\\'s \"createdAt\" property is an ISO 8601 timestamp'] = new Date(word.createdAt).toISOString() === word.createdAt;",
+                "        tests['Word has \"updatedAt\" property'] = word.hasOwnProperty('updatedAt');",
+                "        tests['Word\\'s \"updatedAt\" property is an ISO 8601 timestamp'] = new Date(word.updatedAt).toISOString() === word.updatedAt;",
+                "        tests['Word has \"description\" property'] = word.hasOwnProperty('description');",
+                "        tests['Word has \"tagList\" property'] = word.hasOwnProperty('tagList');",
+                "        tests['Word\\'s \"tagList\" property is an Array'] = Array.isArray(word.tagList);",
+                "        tests['Word has \"seller\" property'] = word.hasOwnProperty('seller');",
+                "        tests['Word has \"favorited\" property'] = word.hasOwnProperty('favorited');",
+                "        tests['Word has \"favoritesCount\" property'] = word.hasOwnProperty('favoritesCount');",
+                "        tests['favoritesCount is an integer'] = Number.isInteger(word.favoritesCount);",
+                "    } else {",
+                "        tests['wordsCount is 0 when feed is empty'] = responseJSON.wordsCount === 0;",
+                "    }",
+                "}",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": {
+              "raw": "{{apiUrl}}/words?favorited=jane",
+              "host": [
+                "{{apiUrl}}"
+              ],
+              "path": [
+                "words"
+              ],
+              "query": [{
+                "key": "favorited",
+                "value": "jane"
+              }],
+              "variable": []
+            },
+            "method": "GET",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Words by Tag",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var is200Response = responseCode.code === 200;",
+                "",
+                "tests['Response code is 200 OK'] = is200Response;",
+                "",
+                "if(is200Response){",
+                "    var responseJSON = JSON.parse(responseBody);",
+                "",
+                "    tests['Response contains \"words\" property'] = responseJSON.hasOwnProperty('words');",
+                "    tests['Response contains \"wordsCount\" property'] = responseJSON.hasOwnProperty('wordsCount');",
+                "    tests['wordsCount is an integer'] = Number.isInteger(responseJSON.wordsCount);",
+                "",
+                "    if(responseJSON.words.length){",
+                "        var word = responseJSON.words[0];",
+                "",
+                "        tests['Word has \"title\" property'] = word.hasOwnProperty('title');",
+                "        tests['Word has \"slug\" property'] = word.hasOwnProperty('slug');",
+                "        tests['Word has \"body\" property'] = word.hasOwnProperty('body');",
+                "        tests['Word has \"createdAt\" property'] = word.hasOwnProperty('createdAt');",
+                "        tests['Word\\'s \"createdAt\" property is an ISO 8601 timestamp'] = new Date(word.createdAt).toISOString() === word.createdAt;",
+                "        tests['Word has \"updatedAt\" property'] = word.hasOwnProperty('updatedAt');",
+                "        tests['Word\\'s \"updatedAt\" property is an ISO 8601 timestamp'] = new Date(word.updatedAt).toISOString() === word.updatedAt;",
+                "        tests['Word has \"description\" property'] = word.hasOwnProperty('description');",
+                "        tests['Word has \"tagList\" property'] = word.hasOwnProperty('tagList');",
+                "        tests['Word\\'s \"tagList\" property is an Array'] = Array.isArray(word.tagList);",
+                "        tests['Word has \"seller\" property'] = word.hasOwnProperty('seller');",
+                "        tests['Word has \"favorited\" property'] = word.hasOwnProperty('favorited');",
+                "        tests['Word has \"favoritesCount\" property'] = word.hasOwnProperty('favoritesCount');",
+                "        tests['favoritesCount is an integer'] = Number.isInteger(word.favoritesCount);",
+                "    } else {",
+                "        tests['wordsCount is 0 when feed is empty'] = responseJSON.wordsCount === 0;",
+                "    }",
+                "}",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": {
+              "raw": "{{apiUrl}}/words?tag=dragons",
+              "host": [
+                "{{apiUrl}}"
+              ],
+              "path": [
+                "words"
+              ],
+              "query": [{
+                "key": "tag",
+                "value": "dragons"
+              }],
+              "variable": []
+            },
+            "method": "GET",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Single Word by slug",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var responseJSON = JSON.parse(responseBody);",
+                "",
+                "tests['Response contains \"word\" property'] = responseJSON.hasOwnProperty('word');",
+                "",
+                "var word = responseJSON.word || {};",
+                "",
+                "tests['Word has \"title\" property'] = word.hasOwnProperty('title');",
+                "tests['Word has \"slug\" property'] = word.hasOwnProperty('slug');",
+                "tests['Word has \"body\" property'] = word.hasOwnProperty('body');",
+                "tests['Word has \"createdAt\" property'] = word.hasOwnProperty('createdAt');",
+                "tests['Word\\'s \"createdAt\" property is an ISO 8601 timestamp'] = new Date(word.createdAt).toISOString() === word.createdAt;",
+                "tests['Word has \"updatedAt\" property'] = word.hasOwnProperty('updatedAt');",
+                "tests['Word\\'s \"updatedAt\" property is an ISO 8601 timestamp'] = new Date(word.updatedAt).toISOString() === word.updatedAt;",
+                "tests['Word has \"description\" property'] = word.hasOwnProperty('description');",
+                "tests['Word has \"tagList\" property'] = word.hasOwnProperty('tagList');",
+                "tests['Word\\'s \"tagList\" property is an Array'] = Array.isArray(word.tagList);",
+                "tests['Word has \"seller\" property'] = word.hasOwnProperty('seller');",
+                "tests['Word has \"favorited\" property'] = word.hasOwnProperty('favorited');",
+                "tests['Word has \"favoritesCount\" property'] = word.hasOwnProperty('favoritesCount');",
+                "tests['favoritesCount is an integer'] = Number.isInteger(word.favoritesCount);",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": "{{apiUrl}}/words/{{slug}}",
+            "method": "GET",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              }
+            ],
+            "body": {},
+            "description": ""
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Comments",
+      "description": "",
+      "word": [{
+          "name": "All Comments for Word",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var is200Response = responseCode.code === 200",
+                "",
+                "tests['Response code is 200 OK'] = is200Response;",
+                "",
+                "if(is200Response){",
+                "    var responseJSON = JSON.parse(responseBody);",
+                "",
+                "    tests['Response contains \"comments\" property'] = responseJSON.hasOwnProperty('comments');",
+                "",
+                "    if(responseJSON.comments.length){",
+                "        var comment = responseJSON.comments[0];",
+                "",
+                "        tests['Comment has \"id\" property'] = comment.hasOwnProperty('id');",
+                "        tests['Comment has \"body\" property'] = comment.hasOwnProperty('body');",
+                "        tests['Comment has \"createdAt\" property'] = comment.hasOwnProperty('createdAt');",
+                "        tests['\"createdAt\" property is an ISO 8601 timestamp'] = new Date(comment.createdAt).toISOString() === comment.createdAt;",
+                "        tests['Comment has \"updatedAt\" property'] = comment.hasOwnProperty('updatedAt');",
+                "        tests['\"updatedAt\" property is an ISO 8601 timestamp'] = new Date(comment.updatedAt).toISOString() === comment.updatedAt;",
+                "        tests['Comment has \"seller\" property'] = comment.hasOwnProperty('seller');",
+                "    }",
+                "}",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": "{{apiUrl}}/words/{{slug}}/comments",
+            "method": "GET",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "description": ""
+              }
+            ],
+            "body": {},
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Create Comment for Word",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var responseJSON = JSON.parse(responseBody);",
+                "",
+                "tests['Response contains \"comment\" property'] = responseJSON.hasOwnProperty('comment');",
+                "",
+                "var comment = responseJSON.comment || {};",
+                "",
+                "tests['Comment has \"id\" property'] = comment.hasOwnProperty('id');",
+                "tests['Comment has \"body\" property'] = comment.hasOwnProperty('body');",
+                "tests['Comment has \"createdAt\" property'] = comment.hasOwnProperty('createdAt');",
+                "tests['\"createdAt\" property is an ISO 8601 timestamp'] = new Date(comment.createdAt).toISOString() === comment.createdAt;",
+                "tests['Comment has \"seller\" property'] = comment.hasOwnProperty('seller');",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": "{{apiUrl}}/words/{{slug}}/comments",
+            "method": "POST",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"comment\":{\"body\":\"Thank you so much!\"}}"
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Comment for Word",
+          "request": {
+            "url": "{{apiUrl}}/words/{{slug}}/comments/1",
+            "method": "DELETE",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "description": ""
+              }
+            ],
+            "body": {},
+            "description": ""
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Profiles",
+      "description": "",
+      "word": [{
+          "name": "Profile",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "if (!(environment.isIntegrationTest)) {",
+                "var is200Response = responseCode.code === 200;",
+                "",
+                "tests['Response code is 200 OK'] = is200Response;",
+                "",
+                "if(is200Response){",
+                "    var responseJSON = JSON.parse(responseBody);",
+                "",
+                "    tests['Response contains \"profile\" property'] = responseJSON.hasOwnProperty('profile');",
+                "    ",
+                "    var profile = responseJSON.profile || {};",
+                "    ",
+                "    tests['Profile has \"username\" property'] = profile.hasOwnProperty('username');",
+                "    tests['Profile has \"image\" property'] = profile.hasOwnProperty('image');",
+                "    tests['Profile has \"following\" property'] = profile.hasOwnProperty('following');",
+                "}",
+                "}",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": "{{apiUrl}}/profiles/johnjacob",
+            "method": "GET",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "description": ""
+              }
+            ],
+            "body": {},
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Follow Profile",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "if (!(environment.isIntegrationTest)) {",
+                "var is200Response = responseCode.code === 200;",
+                "",
+                "tests['Response code is 200 OK'] = is200Response;",
+                "",
+                "if(is200Response){",
+                "    var responseJSON = JSON.parse(responseBody);",
+                "",
+                "    tests['Response contains \"profile\" property'] = responseJSON.hasOwnProperty('profile');",
+                "    ",
+                "    var profile = responseJSON.profile || {};",
+                "    ",
+                "    tests['Profile has \"username\" property'] = profile.hasOwnProperty('username');",
+                "    tests['Profile has \"image\" property'] = profile.hasOwnProperty('image');",
+                "    tests['Profile has \"following\" property'] = profile.hasOwnProperty('following');",
+                "    tests['Profile\\'s \"following\" property is true'] = profile.following === true;",
+                "}",
+                "}",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": "{{apiUrl}}/profiles/johnjacob/follow",
+            "method": "POST",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"user\":{\"email\":\"john@jacob.com\"}}"
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Unfollow Profile",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "if (!(environment.isIntegrationTest)) {",
+                "var is200Response = responseCode.code === 200;",
+                "",
+                "tests['Response code is 200 OK'] = is200Response;",
+                "",
+                "if(is200Response){",
+                "    var responseJSON = JSON.parse(responseBody);",
+                "",
+                "    tests['Response contains \"profile\" property'] = responseJSON.hasOwnProperty('profile');",
+                "    ",
+                "    var profile = responseJSON.profile || {};",
+                "    ",
+                "    tests['Profile has \"username\" property'] = profile.hasOwnProperty('username');",
+                "    tests['Profile has \"image\" property'] = profile.hasOwnProperty('image');",
+                "    tests['Profile has \"following\" property'] = profile.hasOwnProperty('following');",
+                "    tests['Profile\\'s \"following\" property is false'] = profile.following === false;",
+                "}",
+                "}",
+                ""
+              ]
+            }
+          }],
+          "request": {
+            "url": "{{apiUrl}}/profiles/johnjacob/follow",
+            "method": "DELETE",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "description": ""
+              }
+            ],
+            "body": {},
+            "description": ""
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Tags",
+      "description": "",
+      "word": [{
+        "name": "All Tags",
+        "event": [{
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "var is200Response = responseCode.code === 200;",
+              "",
+              "tests['Response code is 200 OK'] = is200Response;",
+              "",
+              "if(is200Response){",
+              "    var responseJSON = JSON.parse(responseBody);",
+              "    ",
+              "    tests['Response contains \"tags\" property'] = responseJSON.hasOwnProperty('tags');",
+              "    tests['\"tags\" property returned as array'] = Array.isArray(responseJSON.tags);",
+              "}",
+              ""
+            ]
+          }
+        }],
+        "request": {
+          "url": "{{apiUrl}}/tags",
+          "method": "GET",
+          "header": [{
+              "key": "Content-Type",
+              "value": "application/json",
+              "description": ""
+            },
+            {
+              "key": "X-Requested-With",
+              "value": "XMLHttpRequest",
+              "description": ""
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": ""
+          },
+          "description": ""
+        },
+        "response": []
+      }]
+    },
+    {
+      "name": "Cleanup",
+      "description": "",
+      "word": [{
+        "name": "Delete Word",
+        "request": {
+          "url": "{{apiUrl}}/words/{{slug}}",
+          "method": "DELETE",
+          "header": [{
+              "key": "Content-Type",
+              "value": "application/json",
+              "description": ""
+            },
+            {
+              "key": "X-Requested-With",
+              "value": "XMLHttpRequest",
+              "description": ""
+            },
+            {
+              "key": "Authorization",
+              "value": "Token {{token}}",
+              "description": ""
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": ""
+          },
+          "description": ""
+        },
+        "response": []
+      }]
+    }
+  ]
+}
