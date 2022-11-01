@@ -49,7 +49,7 @@ const Auth = {
 const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
 const omitSlug = (word) => Object.assign({}, word, { slug: undefined });
 const Words = {
-  all: (page) => requests.get(`/words?${limit(25, page)}`),
+  all: (page) => requests.get(`/words?${limit(21, page)}`),
   bySearch: (search, page) =>
     requests.get(`/words?search=${encode(search)}&${limit(20, page)}`),
   del: (slug) => requests.del(`/words/${slug}`),
