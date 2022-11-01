@@ -11,12 +11,16 @@ var http = require("http"),
   mongoose = require("mongoose");
 
 var isProduction = process.env.NODE_ENV === "production";
-
+const DICTIONARY_WEB_APP_DOMAIN = "ad-publishers-dictionary.herokuapp.com";
 // Create global app object
 var app = express();
 
 if (isProduction) {
-  app.use(cors({origin: 'ad-publishers-dictionary.herokuapp.com'}));
+  app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", DICTIONARY_WEB_APP_DOMAIN);
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 }
 else{
   //remove all cross origin limitations

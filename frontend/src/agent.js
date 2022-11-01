@@ -8,7 +8,7 @@ const API_ROOT =
     ? "http://localhost:3000/api"
     : process.env.REACT_APP_BACKEND_URL
     ? process.env.REACT_APP_BACKEND_URL + "/api"
-    : "https://dictionary.adpublishers.com/api";
+    : "https://ad-publishers-dictionary-api.herokuapp.com/api";
 
 const encode = encodeURIComponent;
 const responseBody = (res) => res.body;
