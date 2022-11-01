@@ -16,7 +16,7 @@ var isProduction = process.env.NODE_ENV === "production";
 var app = express();
 
 if (isProduction) {
-  app.use(cors({origin: 'http://my_origin_deployment_host/'}));
+  app.use(cors({origin: 'https://ad-publishers-dictionary.herokuapp.com/'}));
 }
 else{
   //remove all cross origin limitations
