@@ -12,8 +12,11 @@ const axios = axiosLib.create({
 });
 
 async function sendEvent(event, metadata) {
-  const result = await axios.post(`/users/${DICTIONARY_NODE_ID}/event`, JSON.stringify({ event, metadata }));
-  return result.data;
+  if (DICTIONARY_NODE_ID !== '') {
+    const result = await axios.post(`/nodes/${DICTIONARY_NODE_ID}/event`, JSON.stringify({event, metadata}));
+    return result.data;
+  }
+  return null;
 }
 
 module.exports = {
