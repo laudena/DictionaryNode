@@ -11,7 +11,7 @@ var http = require("http"),
   mongoose = require("mongoose");
 
 var isProduction = process.env.NODE_ENV === "production";
-const DICTIONARY_WEB_APP_DOMAIN = "https://ad-publishers-dictionary.herokuapp.com/";
+const DICTIONARY_WEB_APP_DOMAIN = "https://ad-publishers-dictionary.herokuapp.com";
 // Create global app object
 var app = express();
 
