@@ -41,16 +41,17 @@ class Home extends React.Component {
   handleChange = (e) => {
     if (this.props.inProgress) {
       searchTerminQueue = e.target.value; //override the previous term in queue (we don't care for rotten terms)
-      console.log('Just changed term to '+searchTerminQueue);
+      console.log('Query waits in queue. next query set to: '+searchTerminQueue);
     }
-    else this.sendQuery(e.target.value);
+    else
+      this.sendQuery(e.target.value);
   }
 
   componentDidUpdate(prevProps,prevState){
     //if sync completed and there was a query in queue - send it now
-    console.log("currentprops inprogress=" + this.props.inProgress + ", prev-Props:" + prevProps.inProgress + ", query:" + searchTerminQueue);
+    //console.log("currentprops inprogress=" + this.props.inProgress + ", prev-Props:" + prevProps.inProgress + ", query:" + searchTerminQueue);
     if (!this.props.inProgress && prevProps.inProgress && searchTerminQueue !== ''){
-      console.log('Inprogress changed to false. Now sending '+searchTerminQueue);
+      //console.log('Inprogress changed to false. Now sending '+searchTerminQueue);
       this.sendQuery(searchTerminQueue);
       searchTerminQueue = '';
     }
@@ -74,6 +75,9 @@ class Home extends React.Component {
               onChange={this.handleChange}
               placeholder="התחל לכתוב כאן..."
           />
+          <div className="spinner-grow" role="status" hidden={!this.props.inProgress}>
+            <span className="sr-only">Loading...</span>
+          </div>
         </div>
         <div className="container page">
           <MainView />

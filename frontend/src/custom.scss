@@ -219,3 +219,7 @@ sub { flex: 0; vertical-align: baseline; position: relative; font-size: 70%; bot
   height: 100%;
   border-right: 1px solid $border-color
 }
+.spinner-grow{
+  width: 1.5rem;
+  height: 1.5rem;
+}

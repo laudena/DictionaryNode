@@ -26,6 +26,13 @@ const DEFAULT_IMAGE = "/placeholder.png";
 //     })
 //     .catch();
 // });
+function wait(ms){
+    var start = new Date().getTime();
+    var end = start;
+    while(end < start + ms) {
+        end = new Date().getTime();
+    }
+}
 
 router.get("/", auth.optional, function(req, res, next) {
     var query = {};
@@ -44,6 +51,7 @@ router.get("/", auth.optional, function(req, res, next) {
 
         query = { title_flat:  {$regex: req.query.search, $options: 'i'} };
         console.log('backend request for search: '+ req.query.search);
+
     }
 
     if (req.query.search === ''){
@@ -52,6 +60,9 @@ router.get("/", auth.optional, function(req, res, next) {
             wordsCount: 0
         });
     }
+
+    //latency for debugging
+    //wait(100);
     return Promise.all([
         Word.find(query)
             .limit(Number(limit))
