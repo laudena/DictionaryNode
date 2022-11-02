@@ -3,7 +3,7 @@ import {
   HOME_PAGE_LOADED,
   HOME_PAGE_UNLOADED,
   PROFILE_PAGE_LOADED,
-  PROFILE_PAGE_UNLOADED
+  PROFILE_PAGE_UNLOADED, ASYNC_START, ASYNC_END
 } from "../constants/actionTypes";
 
 const reducer = (state = {}, action) => {
@@ -15,6 +15,14 @@ const reducer = (state = {}, action) => {
         wordsCount: action.payload.words[0].wordsCount,
         currentPage: action.page,
       };
+    case ASYNC_START:
+      if (action.subtype === HOME_PAGE_LOADED) {
+        return { ...state, inProgress: true };
+      }
+      break;
+    case ASYNC_END:
+      return { ...state, inProgress: false };
+
     case HOME_PAGE_LOADED:
       console.log('in reducer wordList (HOME_PAGE_LOADED):');
       console.log(action.payload[0].words);
@@ -23,7 +31,8 @@ const reducer = (state = {}, action) => {
         pager: action.pager,
         words: action.payload[0].words,
         wordsCount: action.payload[0].wordsCount,
-        currentPage: 0
+        currentPage: 0,
+        inProgress: false
       };
     case HOME_PAGE_UNLOADED:
       return {};

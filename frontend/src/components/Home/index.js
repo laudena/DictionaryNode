@@ -9,11 +9,13 @@ import {
 } from "../../constants/actionTypes";
 
 const Promise = global.Promise;
+let searchTerminQueue = '';
 
 const mapStateToProps = (state) => ({
   ...state.home,
   appName: state.common.appName,
-  token: state.common.token
+  token: state.common.token,
+  inProgress: state.wordList.inProgress
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -27,7 +29,6 @@ const mapDispatchToProps = (dispatch) => ({
 class Home extends React.Component {
   componentWillMount() {
     const wordsPromise = agent.Words.all;
-
     this.props.onLoad(
       wordsPromise,
       Promise.all([agent.Words.all(), wordsPromise()])
@@ -38,14 +39,26 @@ class Home extends React.Component {
     this.props.onUnload();
   }
   handleChange = (e) => {
-    console.log('search term changed:' + e.target.value);
+    if (this.props.inProgress) {
+        searchTerminQueue = e.target.value; //override the previous term in queue (we don't care for rotten terms)
+    }
+    else this.sendQuery(e.target.value);
+  }
+
+  componentDidUpdate(prevProps,prevState){
+    //if sync completed and there was a query in queue - send it now
+    if (!this.props.inProgress && prevProps.isProgress && searchTerminQueue !== ''){
+      this.sendQuery(searchTerminQueue);
+      searchTerminQueue = '';
+    }
+  }
+  sendQuery(queryString){
     const wordsPromise = agent.Words.bySearch;
     this.props.onSearchTermChange(
         wordsPromise,
-        Promise.all([agent.Words.bySearch(e.target.value), wordsPromise()])
+        Promise.all([agent.Words.bySearch(queryString), wordsPromise()])
     );
   }
-
   render() {
     return (
       <div className="home-page">
