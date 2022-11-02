@@ -48,8 +48,8 @@ class Home extends React.Component {
 
   componentDidUpdate(prevProps,prevState){
     //if sync completed and there was a query in queue - send it now
-    console.log("currentprops inprogress=" + this.props.inProgress + ", prev-Props:" + prevProps.isProgress + ", query:" + searchTerminQueue);
-    if (!this.props.inProgress && prevProps.isProgress && searchTerminQueue !== ''){
+    console.log("currentprops inprogress=" + this.props.inProgress + ", prev-Props:" + prevProps.inProgress + ", query:" + searchTerminQueue);
+    if (!this.props.inProgress && prevProps.inProgress && searchTerminQueue !== ''){
       console.log('Inprogress changed to false. Now sending '+searchTerminQueue);
       this.sendQuery(searchTerminQueue);
       searchTerminQueue = '';
