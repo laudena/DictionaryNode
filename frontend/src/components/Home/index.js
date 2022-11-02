@@ -40,7 +40,8 @@ class Home extends React.Component {
   }
   handleChange = (e) => {
     if (this.props.inProgress) {
-        searchTerminQueue = e.target.value; //override the previous term in queue (we don't care for rotten terms)
+      searchTerminQueue = e.target.value; //override the previous term in queue (we don't care for rotten terms)
+      console.log('Just changed term to '+searchTerminQueue);
     }
     else this.sendQuery(e.target.value);
   }
@@ -48,11 +49,13 @@ class Home extends React.Component {
   componentDidUpdate(prevProps,prevState){
     //if sync completed and there was a query in queue - send it now
     if (!this.props.inProgress && prevProps.isProgress && searchTerminQueue !== ''){
+      console.log('Inprogress changed to false. Now sending '+searchTerminQueue);
       this.sendQuery(searchTerminQueue);
       searchTerminQueue = '';
     }
   }
   sendQuery(queryString){
+    console.log('Actual sending Query: ' + queryString);
     const wordsPromise = agent.Words.bySearch;
     this.props.onSearchTermChange(
         wordsPromise,
