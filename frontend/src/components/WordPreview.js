@@ -15,7 +15,6 @@ const mapDispatchToProps = (dispatch) => ({
   //   }),
 });
 
-
 const WordPreview = (props) => {
   const word = props.word;
 

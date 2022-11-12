@@ -7,14 +7,14 @@ const LoggedOutView = (props) => {
     return (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <Link to="/login" className="nav-link">
-            Sign in
+          <Link to="/" className="nav-link text-left author-left">
+            <i className="ion-home"></i>&nbsp;חזרה
           </Link>
         </li>
 
         <li className="nav-item">
-          <Link to="/register" className="nav-link">
-            Sign up
+          <Link to="/login" className="nav-link">
+            כניסה
           </Link>
         </li>
       </ul>
@@ -25,30 +25,26 @@ const LoggedOutView = (props) => {
 
 const LoggedInView = (props) => {
   if (props.currentUser) {
+    console.log(props.currentUser);
     return (
       <ul className="navbar-nav ml-auto">
-        {props.currentUser.role === "user" && (
+        <li className="nav-item">
+          <Link to="/" className="nav-link text-left author-left">
+            <i className="ion-home"></i>&nbsp;חזרה
+          </Link>
+        </li>
+
+        {props.currentUser.role === "admin" && (
           <li className="nav-item">
-            <Link to="/editor" className="nav-link">
-              <i className="ion-compose"></i>&nbsp;New Word
+            <Link to="/register" className="nav-link">
+              <i className="ion-compose"></i>&nbsp;משתמש חדש
             </Link>
           </li>
         )}
 
         <li className="nav-item">
           <Link to="/settings" className="nav-link">
-            <i className="ion-gear-a"></i>&nbsp;Settings
-          </Link>
-        </li>
-
-        <li className="nav-item">
-          <Link to={`/@${props.currentUser.username}`} className="nav-link">
-            <img
-              src={props.currentUser.image}
-              className="user-pic pr-1"
-              alt={props.currentUser.username}
-            />
-            {props.currentUser.username}
+            <i className="ion-gear-a"></i>&nbsp;{props.currentUser.username}
           </Link>
         </li>
       </ul>
@@ -70,7 +66,6 @@ class Header extends React.Component {
         </Link>
 
         <LoggedOutView currentUser={this.props.currentUser} />
-
         <LoggedInView currentUser={this.props.currentUser} />
       </nav>
     );

@@ -18,6 +18,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch({ type: UPDATE_FIELD_AUTH, key: "password", value }),
   onChangeUsername: (value) =>
     dispatch({ type: UPDATE_FIELD_AUTH, key: "username", value }),
+  onChangeAdmin: (value) => {
+    let role = value === "checked" ? "admin" : "user";
+    dispatch({ type: UPDATE_FIELD_AUTH, key: "role", role });
+  },
   onSubmit: (username, email, password) => {
     const payload = agent.Auth.register(username, email, password);
     dispatch({ type: REGISTER, payload });
@@ -31,6 +35,8 @@ class Register extends React.Component {
     this.changeEmail = (ev) => this.props.onChangeEmail(ev.target.value);
     this.changePassword = (ev) => this.props.onChangePassword(ev.target.value);
     this.changeUsername = (ev) => this.props.onChangeUsername(ev.target.value);
+    this.changeAdmin = (ev) => this.props.onChangeAdmin(ev.target.checked);
+
     this.submitForm = (username, email, password) => (ev) => {
       ev.preventDefault();
       this.props.onSubmit(username, email, password);
@@ -45,14 +51,28 @@ class Register extends React.Component {
     const email = this.props.email;
     const password = this.props.password;
     const username = this.props.username;
+    const admin = this.props.admin || false;
 
     return (
       <div className="auth-page">
         <div className="container page text-center text-dark">
           <div className="row">
             <div className="col-md-6 offset-md-3 col-xs-12 bg-white p-4">
-              <h1 className="text-xs-center font-weight-bold pb-4">Sign Up</h1>
+              <h1 className="text-xs-center font-weight-bold pb-4">
+                רישום משתמש חדש
+              </h1>
 
+              <div className="container page">
+                <div
+                  className="alert alert-danger text-start"
+                  role="alert"
+                  hidden={!this.props.errors}
+                >
+                  <div className="hebrew">
+                    &nbsp; שגיאה בעת שמירת משתמש חדש.&nbsp;&nbsp;
+                  </div>
+                </div>
+              </div>
               <ListErrors errors={this.props.errors} />
 
               <form onSubmit={this.submitForm(username, email, password)}>
@@ -71,7 +91,7 @@ class Register extends React.Component {
                         className="form-control form-control-lg"
                         type="text"
                         placeholder="Username"
-                        value={this.props.username}
+                        value={this.props.username || ""}
                         onChange={this.changeUsername}
                       />
                     </div>
@@ -91,7 +111,7 @@ class Register extends React.Component {
                         className="form-control form-control-lg"
                         type="password"
                         placeholder="Password"
-                        value={this.props.password}
+                        value={this.props.password || ""}
                         onChange={this.changePassword}
                       />
                     </div>
@@ -111,9 +131,32 @@ class Register extends React.Component {
                         className="form-control form-control-lg"
                         type="email"
                         placeholder="Email"
-                        value={this.props.email}
+                        value={this.props.email || ""}
                         onChange={this.changeEmail}
                       />
+                    </div>
+                  </fieldset>
+
+                  <fieldset className="form-group">
+                    <div className="input-group mb-3">
+                      <div>
+                        <div className="form-check form-switch">
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            id="flexSwitchCheckChecked"
+                            checked={admin}
+                            value="yes"
+                            onChange={this.changeAdmin}
+                          />
+                          <label
+                            className="form-check-label"
+                            htmlFor="flexSwitchCheckChecked"
+                          >
+                            Admin user?
+                          </label>
+                        </div>
+                      </div>
                     </div>
                   </fieldset>
 
@@ -128,7 +171,7 @@ class Register extends React.Component {
                       borderRadius: "5px",
                     }}
                   >
-                    SIGN UP
+                    צור משתמש חדש
                   </button>
                 </fieldset>
               </form>

@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto%20Sans%20Hebrew");
 
 // Override default variables before the import
-$primary: #F5F5F5FF;
+$primary: #f5f5f5ff;
 $secondary: #373737;
 
 $body-color: #373737; //this is the text color
@@ -30,7 +30,6 @@ body {
   //background-blend-mode: lighten;
   //background-position: top;
   //background-repeat: repeat-y;
-
 }
 .page {
   margin-top: 2 * $spacer;
@@ -65,14 +64,14 @@ body {
   min-width: 100%;
 }
 
-@include media-breakpoint-up(sm){
+@include media-breakpoint-up(sm) {
   .separation-line {
-    display:block;
+    display: block;
   }
 }
-@include media-breakpoint-down(sm){
+@include media-breakpoint-down(sm) {
   .separation-line {
-    display:none;
+    display: none;
   }
 }
 @include media-breakpoint-up(150px) {
@@ -84,23 +83,22 @@ body {
   }
 }
 
-.headerContainer{
+.headerContainer {
   display: flex;
   flex-direction: row;
   margin-top: 10px;
 }
-.subHeaderContainer{
+.subHeaderContainer {
   display: flex;
   flex-direction: row;
 }
-.an-reeh{
+.an-reeh {
   display: flex;
   flex-direction: row;
   font-weight: bold;
   font-size: small;
 }
-.an-1{
-
+.an-1 {
   direction: rtl;
   font-weight: bold;
   font-size: large;
@@ -111,7 +109,7 @@ body {
   font-family: "Noto Sans Hebrew";
 }
 
-.and-22{
+.and-22 {
   flex: 1 auto;
   font-weight: lighter;
   direction: ltr;
@@ -119,7 +117,7 @@ body {
   text-align: left;
   font-family: "Times New Roman";
 }
-.bd-3{
+.bd-3 {
   display: flex;
   font-weight: lighter;
   font-size: medium;
@@ -132,19 +130,19 @@ body {
   font-style: italic;
   font-size: medium;
 }
-.tw_80{
+.tw_80 {
   font-weight: lighter;
   display: flex;
   /*font-size: x-small;*/
   /*margin: 4px;*/
 }
-.tw_85{
+.tw_85 {
   display: flex;
   font-weight: lighter;
   /*font-size: x-small;*/
   /*margin: 4px;*/
 }
-.tf_narkisim_b{
+.tf_narkisim_b {
   font-weight: bold;
   margin-right: 1px;
   margin-left: 1px;
@@ -156,52 +154,55 @@ body {
   font-weight: lighter;
   margin-right: 0.2em;
   display: flex;
-
 }
-.tf_narkisim_b2{
+.tf_narkisim_b2 {
   font-weight: bold;
   display: flex;
 }
-.th_0_85h{
-  display:flex;
+.th_0_85h {
+  display: flex;
 }
-sub { flex: 0; vertical-align: baseline; position: relative; font-size: 70%; bottom: -1.40em;} /* 70% size of its parent element font-size which is good. */
+sub {
+  flex: 0;
+  vertical-align: baseline;
+  position: relative;
+  font-size: 70%;
+  bottom: -1.4em;
+} /* 70% size of its parent element font-size which is good. */
 
 .hebrew {
   direction: rtl;
   text-align: right;
 }
-.two-columns{
+.two-columns {
   display: flex;
   flex-wrap: wrap;
   margin-left: -15px;
   flex-direction: column;
-  max-height: 100rem
+  max-height: 100rem;
 }
-.banner-subtitle{
+.banner-subtitle {
   font-size: x-large;
   text-align: left;
-
 }
-.authors{
-  display:flex;
+.authors {
+  display: flex;
   flex-direction: row;
   font-size: x-large;
-
 }
-.author-right{
+.author-right {
   text-align: right;
   flex-grow: 1;
 }
-.author-left{
+.author-left {
   text-align: left;
   flex-grow: 1;
 }
-.author-middle{
-  flex-grow:1;
+.author-middle {
+  flex-grow: 1;
 }
-.logo-image{
-  display:block;
+.logo-image {
+  display: block;
   margin-left: auto;
   margin-right: auto;
 }
@@ -210,16 +211,15 @@ sub { flex: 0; vertical-align: baseline; position: relative; font-size: 70%; bot
   font-size: x-large;
 }
 .no-words {
-  margin-left:50%;
+  margin-left: 50%;
 }
-.separation-line{
-
+.separation-line {
   position: absolute;
   right: 51.5%;
   height: 100%;
-  border-right: 1px solid $border-color
+  border-right: 1px solid $border-color;
 }
-.spinner-grow{
+.spinner-grow {
   width: 1.5rem;
   height: 1.5rem;
 }

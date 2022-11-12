@@ -55,7 +55,7 @@ class SettingsForm extends React.Component {
         Object.assign({}, this.state, {
           image: nextProps.currentUser.image || "",
           username: nextProps.currentUser.username,
-          bio: nextProps.currentUser.bio,
+          bio: nextProps.currentUser.bio || "",
           email: nextProps.currentUser.email,
         })
       );
@@ -65,16 +65,16 @@ class SettingsForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.submitForm}>
-        <fieldset>
-          <fieldset className="form-group">
-            <input
-              className="form-control"
-              type="text"
-              placeholder="URL of profile picture"
-              value={this.state.image}
-              onChange={this.updateState("image")}
-            />
-          </fieldset>
+        <fieldset className="hebrew">
+          {/*<fieldset className="form-group">*/}
+          {/*  <input*/}
+          {/*    className="form-control"*/}
+          {/*    type="text"*/}
+          {/*    placeholder="URL of profile picture"*/}
+          {/*    value={this.state.image}*/}
+          {/*    onChange={this.updateState("image")}*/}
+          {/*  />*/}
+          {/*</fieldset>*/}
 
           <fieldset className="form-group">
             <input
@@ -86,15 +86,15 @@ class SettingsForm extends React.Component {
             />
           </fieldset>
 
-          <fieldset className="form-group">
-            <textarea
-              className="form-control form-control-lg"
-              rows="8"
-              placeholder="Short bio about you"
-              value={this.state.bio}
-              onChange={this.updateState("bio")}
-            ></textarea>
-          </fieldset>
+          {/*<fieldset className="form-group">*/}
+          {/*  <textarea*/}
+          {/*    className="form-control form-control-lg"*/}
+          {/*    rows="8"*/}
+          {/*    placeholder="Short bio about you"*/}
+          {/*    value={this.state.bio}*/}
+          {/*    onChange={this.updateState("bio")}*/}
+          {/*  ></textarea>*/}
+          {/*</fieldset>*/}
 
           <fieldset className="form-group">
             <input
@@ -117,11 +117,11 @@ class SettingsForm extends React.Component {
           </fieldset>
 
           <button
-            className="btn btn-lg btn-primary pull-xs-right"
+            className="btn btn-lg btn-primary btn-outline-dark pull-xs-right"
             type="submit"
             disabled={this.state.inProgress}
           >
-            Update Settings
+            עדכן פרטים
           </button>
         </fieldset>
       </form>
@@ -145,10 +145,10 @@ class Settings extends React.Component {
   render() {
     return (
       <div className="settings-page">
-        <div className="container page">
+        <div className="container page hebrew">
           <div className="row">
             <div className="col-md-6 offset-md-3 col-xs-12">
-              <h1 className="text-xs-center">Your Settings</h1>
+              <h1 className="text-xs-center">עדכון פרטים</h1>
 
               <ListErrors errors={this.props.errors}></ListErrors>
 
@@ -163,7 +163,7 @@ class Settings extends React.Component {
                 className="btn btn-outline-danger"
                 onClick={this.props.onClickLogout}
               >
-                Or click here to logout.
+                לחץ כאן כדי להתנתק
               </button>
             </div>
           </div>

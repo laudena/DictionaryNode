@@ -12,10 +12,9 @@ const MainView = (props) => {
   return (
     <div>
       <div className="feed-toggle">
-        <ul className="nav nav-tabs">
-        </ul>
+        <ul className="nav nav-tabs"></ul>
       </div>
-        <div></div>
+      <div></div>
 
       <WordList
         pager={props.pager}

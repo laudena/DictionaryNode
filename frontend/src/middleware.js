@@ -32,7 +32,11 @@ const promiseMiddleware = (store) => (next) => (action) => {
         }
         console.log("ERROR", error);
         action.error = true;
-        action.payload = error.response.body;
+        action.payload = error.response
+          ? error.response.body
+          : error.message
+          ? error.message
+          : "unknown";
         if (!action.skipTracking) {
           store.dispatch({ type: ASYNC_END, promise: action.payload });
         }
@@ -49,11 +53,11 @@ const promiseMiddleware = (store) => (next) => (action) => {
 const localStorageMiddleware = (store) => (next) => (action) => {
   if (action.type === REGISTER || action.type === LOGIN) {
     if (!action.error) {
-      window.localStorage.setWord("jwt", action.payload.user.token);
+      window.localStorage.setItem("jwt", action.payload.user.token);
       agent.setToken(action.payload.user.token);
     }
   } else if (action.type === LOGOUT) {
-    window.localStorage.setWord("jwt", "");
+    window.localStorage.setItem("jwt", "");
     agent.setToken(null);
   }
 

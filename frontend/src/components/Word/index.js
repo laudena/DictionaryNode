@@ -1,4 +1,3 @@
-
 import React from "react";
 import agent from "../../agent";
 import { connect } from "react-redux";
@@ -11,7 +10,7 @@ import {
 const mapStateToProps = (state) => ({
   ...state,
   currentUser: state.common.currentUser,
-  word: state.word.word
+  word: state.word.word,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -21,14 +20,11 @@ const mapDispatchToProps = (dispatch) => ({
 
 class Word extends React.Component {
   componentDidMount() {
-
     console.log(this.props.match.params.id);
     console.log(this.props.word);
 
     this.props.onLoad(
-      Promise.all([
-        agent.Words.get(this.props.match.params.id),
-      ])
+      Promise.all([agent.Words.get(this.props.match.params.id)])
     );
   }
 
@@ -40,12 +36,10 @@ class Word extends React.Component {
     if (!this.props.word) {
       console.log(this.props);
       return (
-          <div className="text-dark">
-            <div className="row bg-white p-4">
-              Cannot find the word yet...
-            </div>
-          </div>
-      )
+        <div className="text-dark">
+          <div className="row bg-white p-4">Cannot find the word yet...</div>
+        </div>
+      );
     }
 
     // const markup = {
@@ -73,9 +67,7 @@ class Word extends React.Component {
             </div>
           </div>
 
-          <div className="row bg-light-gray p-4">
-
-          </div>
+          <div className="row bg-light-gray p-4"></div>
         </div>
       </div>
     );

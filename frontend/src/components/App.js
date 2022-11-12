@@ -8,6 +8,8 @@ import Word from "../components/Word";
 import Home from "../components/Home";
 import Login from "../components/Login";
 import Settings from "../components/Settings";
+import Register from "../components/Register";
+
 import { store } from "../store";
 import { push } from "react-router-redux";
 
@@ -57,8 +59,12 @@ class App extends React.Component {
             <Route path="/login" component={Login} />
             <Route path="/word/:id" component={Word} />
             <Route path="/settings" component={Settings} />
+            <Route path="/register" component={Register} />
           </Switch>
-          <div className="text-sm-center">All rights reserved © AD Publishers, 18 Omri street, Tel Aviv, Israel</div>
+          <div className="text-sm-center">
+            All rights reserved © AD Publishers, 18 Omri street, Tel Aviv,
+            Israel
+          </div>
         </div>
       );
     }

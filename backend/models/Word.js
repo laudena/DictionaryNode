@@ -7,10 +7,16 @@ var WordSchema = new mongoose.Schema(
   {
     slug: { type: String, lowercase: true, unique: true },
     title: String,
-    title_flat: String,
+    title_flat: {
+        type: String,
+        index: true
+    },
     body: String,
     body_flat: String,
-    title_english: String,
+    title_english: {
+        type: String,
+        index: true
+    },
     subtitles_english: [String],
     image: String,
     created_at: Date

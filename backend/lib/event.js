@@ -3,7 +3,7 @@ const fs = require("fs");
 
 const DICTIONARY_NODE_ID = process.env.DICTIONARY_NODE_ID || fs.readFileSync('../.dictionary', 'utf8')
 
-const baseURL = 'https://localhost/set_heap_here';
+const baseURL = ''; //set heap or monitoring service here
 const axios = axiosLib.create({
   baseURL: baseURL,
   headers: {
@@ -12,10 +12,11 @@ const axios = axiosLib.create({
 });
 
 async function sendEvent(event, metadata) {
-  if (DICTIONARY_NODE_ID !== '') {
-    const result = await axios.post(`/nodes/${DICTIONARY_NODE_ID}/event`, JSON.stringify({event, metadata}));
-    return result.data;
-  }
+
+  // if (DICTIONARY_NODE_ID !== '') {
+  //   const result = await axios.post(`/nodes/${DICTIONARY_NODE_ID}/event`, JSON.stringify({event, metadata}));
+  //   return result.data;
+  // }
   return null;
 }
 

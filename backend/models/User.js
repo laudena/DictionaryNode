@@ -22,6 +22,10 @@ var UserSchema = new mongoose.Schema(
       match: [/\S+@\S+\.\S+/, "is invalid"],
       index: true
     },
+    role: {
+        type: String,
+        default: 'user'
+    },
     hash: String,
     salt: String
   },
@@ -35,6 +39,7 @@ UserSchema.methods.validPassword = function(password) {
     .pbkdf2Sync(password, this.salt, 10000, 512, "sha512")
     .toString("hex");
   return this.hash === hash;
+  
 };
 
 UserSchema.methods.setPassword = function(password) {
@@ -53,17 +58,20 @@ UserSchema.methods.generateJWT = function() {
     {
       id: this._id,
       username: this.username,
+      role: this.role,
       exp: parseInt(exp.getTime() / 1000)
     },
     secret
   );
 };
 
+
 UserSchema.methods.toAuthJSON = function() {
   return {
     username: this.username,
     email: this.email,
     token: this.generateJWT(),
+    role: this.role
   };
 };
 

@@ -9,3 +9,4 @@ The Dictionary Frontend is a web application written with [React](https://reactj
 - Consider running `npm config set legacy-peer-deps true` before `npm install`.
 
 - Add BACKEND_URL to point to the server location.
+- To interact with the database, use mongosh: `mongosh "mongodb://localhost:27017/"`

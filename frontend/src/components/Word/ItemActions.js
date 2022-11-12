@@ -3,7 +3,6 @@ import React from "react";
 import agent from "../../agent";
 import { connect } from "react-redux";
 
-
 const mapDispatchToProps = (dispatch) => ({
   onClickDelete: (payload) => dispatch({ type: DELETE_WORD, payload }),
 });

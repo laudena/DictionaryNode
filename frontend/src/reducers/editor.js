@@ -2,7 +2,7 @@ import {
   EDITOR_PAGE_LOADED,
   EDITOR_PAGE_UNLOADED,
   WORD_SUBMITTED,
-  ASYNC_START
+  ASYNC_START,
 } from "../constants/actionTypes";
 
 const reducer = (state = {}, action) => {
@@ -12,7 +12,7 @@ const reducer = (state = {}, action) => {
         ...state,
         wordSlug: action.payload ? action.payload.word.slug : "",
         title: action.payload ? action.payload.word.title : "",
-        body: action.payload ? action.payload.word.body : ""
+        body: action.payload ? action.payload.word.body : "",
       };
     case EDITOR_PAGE_UNLOADED:
       return {};

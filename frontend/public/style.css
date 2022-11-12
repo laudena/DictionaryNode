@@ -54,33 +54,30 @@ body {
   max-width: 100%;
   display: block;
 }
-.photoby{
+.photoby {
   opacity: 0.5;
 }
 
-
-
 /*Here goes the dictionary styles*/
-body{
+body {
   direction: rtl;
 }
-.headerContainer{
+.headerContainer {
   display: flex;
   flex-direction: row;
   margin-top: 10px;
 }
-.subHeaderContainer{
+.subHeaderContainer {
   display: flex;
   flex-direction: row;
 }
-.an-reeh{
+.an-reeh {
   display: flex;
   flex-direction: row;
   font-weight: bold;
   font-size: small;
 }
-.an-1{
-
+.an-1 {
   direction: rtl;
   font-weight: bold;
   font-size: medium;
@@ -90,13 +87,13 @@ body{
   display: flex;
 }
 
-.and-22{
+.and-22 {
   flex: 1 auto;
   font-weight: lighter;
   direction: ltr;
   font-size: medium;
 }
-.bd-3{
+.bd-3 {
   display: flex;
   font-weight: lighter;
   font-size: small;
@@ -109,19 +106,19 @@ body{
   font-style: italic;
   font-size: small;
 }
-.tw_80{
+.tw_80 {
   font-weight: lighter;
   display: flex;
   /*font-size: x-small;*/
   /*margin: 4px;*/
 }
-.tw_85{
+.tw_85 {
   display: flex;
   font-weight: lighter;
   /*font-size: x-small;*/
   /*margin: 4px;*/
 }
-.tf_narkisim_b{
+.tf_narkisim_b {
   font-weight: bold;
   margin-right: 1px;
   margin-left: 1px;
@@ -133,16 +130,21 @@ body{
   font-weight: lighter;
   margin-right: 0.2em;
   display: flex;
-
 }
-.tf_narkisim_b2{
+.tf_narkisim_b2 {
   font-weight: bold;
   display: flex;
 }
-.th_0_85h{
-  display:flex;
+.th_0_85h {
+  display: flex;
 }
-sub { flex: 0; vertical-align: baseline; position: relative; font-size: 70%; bottom: -0.5em;} /* 70% size of its parent element font-size which is good. */
+sub {
+  flex: 0;
+  vertical-align: baseline;
+  position: relative;
+  font-size: 70%;
+  bottom: -0.5em;
+} /* 70% size of its parent element font-size which is good. */
 
 .hebrew {
   direction: rtl;

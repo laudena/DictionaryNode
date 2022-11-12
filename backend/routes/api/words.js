@@ -34,24 +34,23 @@ function wait(ms){
     }
 }
 
-router.get("/", auth.optional, function(req, res, next) {
+//get words query result
+router.get("/", auth.required, function(req, res, next) {
     var query = {};
     var limit = 10;
     var offset = 0;
 
     if (typeof req.query.limit !== "undefined") {
-    limit = req.query.limit;
+        limit = req.query.limit;
     }
 
     if (typeof req.query.offset !== "undefined") {
-    offset = req.query.offset;
+        offset = req.query.offset;
     }
 
     if (typeof req.query.search !== "undefined") {
-
         query = { title_flat:  {$regex: req.query.search, $options: 'i'} };
         console.log('backend request for search: '+ req.query.search);
-
     }
 
     if (req.query.search === ''){
