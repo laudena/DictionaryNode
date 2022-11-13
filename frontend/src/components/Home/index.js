@@ -103,7 +103,7 @@ class Home extends React.Component {
                 </Link>
               </div>
             )}
-            {this.props.status !== 401 ? "Error: #" + this.props.status : ""}
+            {this.props.status && this.props.status !== 401 ? "Error: #" + this.props.status : ""}
           </div>
         </div>
         <div className="container page" hidden={this.props.status !== 200}>
