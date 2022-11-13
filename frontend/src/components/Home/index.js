@@ -95,7 +95,7 @@ class Home extends React.Component {
             role="alert"
             hidden={this.props.status === 200}
           >
-            {this.props.status === 401 && (
+            {(!this.props.status || this.props.status === 401) && (
               <div className="hebrew">
                 &nbsp; יש להיכנס למערכת.&nbsp;&nbsp;
                 <Link to="/login">
