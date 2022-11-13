@@ -19,10 +19,8 @@ router.get("/user", auth.required, function(req, res, next) {
 });
 
 router.put("/user", auth.required, function(req, res, next) {
-  //admins only
-  if (req.payload.role !== 'admin')
-      return res.status(401).jsonp({errors : [ADMIN_REQUIRED] });
 
+  //user update it's own data
   User.findById(req.payload.id)
     .then(function(user) {
       if (!user) {
@@ -48,6 +46,38 @@ router.put("/user", auth.required, function(req, res, next) {
       });
     })
     .catch(next);
+});
+
+
+router.put("/user/password", auth.required, function(req, res, next) {
+    //update any user password (admins only)
+    if (req.payload.role !== 'admin')
+        return res.status(401).jsonp({errors : [ADMIN_REQUIRED] });
+
+    User.findOne({email : req.body.user.email})
+        .then(function(user) {
+            console.log(user);
+            console.log(req.body.user);
+            if (!user) {
+                return res.sendStatus(401);
+            }
+
+            // only update fields that were actually passed...
+            if (typeof req.body.user.username !== "undefined") {
+                user.username = req.body.user.username;
+            }
+            if (typeof req.body.user.password !== "undefined") {
+                user.setPassword(req.body.user.password);
+            }
+            if (typeof req.body.user.role !== "undefined") {
+                user.role = req.body.user.role;
+            }
+
+            return User.findOneAndUpdate({email : req.body.user.email}, user).then(function() {
+                return res.json({ user: user.toAuthJSON() });
+            });
+        })
+        .catch(next);
 });
 
 router.get("/users/login", auth.required, function(req, res, next) {

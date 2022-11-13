@@ -1,4 +1,8 @@
 var mongoose = require("mongoose");
+// Make Mongoose use `findOneAndUpdate()`. Note that this option is `true`
+// by default, you need to set it to false.
+mongoose.set('useFindAndModify', false);
+
 var uniqueValidator = require("mongoose-unique-validator");
 var crypto = require("crypto");
 var jwt = require("jsonwebtoken");
@@ -11,7 +15,7 @@ var UserSchema = new mongoose.Schema(
       lowercase: true,
       unique: true,
       required: [true, "can't be blank"],
-      match: [/^[a-zA-Z0-9]+$/, "is invalid"],
+      match: [/^[a-zA-Z0-9א-ת]+$/, "is invalid"],
       index: true
     },
     email: {
