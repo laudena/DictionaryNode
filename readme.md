@@ -14,3 +14,4 @@ Run `docker-compose up`
 `cd backend`
 
 `./seed.sh`
+(currently uses files `milon.html` and `users.json` which are not here, but earlier versions have some sample data)
