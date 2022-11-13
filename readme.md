@@ -14,4 +14,5 @@ Run `docker-compose up`
 `cd backend`
 
 `./seed.sh`
-(currently uses files `milon.html` and `users.json` which are not here, but earlier versions have some sample data)
+
+Seeds script calls `seed/seed.js`, which uses files which are not available in public domain, but earlier versions of the file have some sample data instead.
