@@ -1,5 +1,4 @@
-// import WordPreview from "./WordPreview";
-import ListPagination from "./ListPagination";
+// import ListPagination from "./ListPagination";
 import React from "react";
 
 const WordList = (props) => {
@@ -27,12 +26,12 @@ const WordList = (props) => {
         })}
       </div>
 
-      <ListPagination
-        pager={props.pager}
-        wordsCount={props.wordsCount}
-        words={props.words}
-        currentPage={props.currentPage}
-      />
+      {/*<ListPagination*/}
+      {/*  pager={props.pager}*/}
+      {/*  wordsCount={props.wordsCount}*/}
+      {/*  words={props.words}*/}
+      {/*  currentPage={props.currentPage}*/}
+      {/*/>*/}
     </div>
   );
 };

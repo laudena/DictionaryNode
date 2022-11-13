@@ -2,30 +2,31 @@
 require("../models/Word");
 require("../models/User");
 const fs = require('fs');
-
 const mongoose = require("mongoose");
 let WordModel = require('mongoose').model('Word');
 let UserModel = require('mongoose').model('User');
 
-
-let splitText = '<div class="headerContainer">';
-let flatTextPreText = '<div class="headerContainer"><div class="an-1">';
-let flatTextPostText = '<sub>';
+const DICTIONARY_RAW_DATA_FILENAME = './seed/milon.html';
+const DICTIONARY_USERS_FILENAME = './seed/users.json';
 const WORD_SEED_NAME = "מילה";
 const TITLE_ENGLISH = "";
 const SUB_TITLE_ENGLISH1 = "";
 const SUB_TITLE_ENGLISH2 = "";
 const IMAGE = "/placeholder.jpg";
 
+
+let splitText = '<div class="headerContainer">';
+let flatTextPreText = '<div class="headerContainer"><div class="an-1">';
+let flatTextPostText = '<sub>';
 let seedDataArray ='';
 let deletingInProgress = false;
-function recreateUsers() {
 
+function recreateUsers() {
     deletingInProgress = true;
     deleteAllUsers();
     while (deletingInProgress);
 
-    fs.readFile('./seed/users.json', 'utf8', (err, data) => {
+    fs.readFile(DICTIONARY_USERS_FILENAME, 'utf8', (err, data) => {
         if (err) {
             console.error(err);
             return;
@@ -52,8 +53,9 @@ function recreateUsers() {
     });
 
 }
+
 function recreateWords() {
-    fs.readFile('./seed/letter.html', 'utf8', (err, data) => {
+    fs.readFile(DICTIONARY_RAW_DATA_FILENAME, 'utf8', (err, data) => {
         if (err) {
             console.error(err);
             return;
@@ -69,19 +71,16 @@ function recreateWords() {
     });
 }
 
-
-
-
-
 function fixFlatTermHebrew(flatTerm) {
     flatTerm = flatTerm.replaceAll('<div class="tpt_10_5pt"></div>','');
     flatTerm = flatTerm.replaceAll('<div class="tpt_13_5pt"></div>','');
-    flatTerm = leaveOnlyHebrewLetteres(flatTerm);
+    flatTerm = leaveOnlyHebrewLetteres(flatTerm).trim();
     //U+05D0 א
     //U+05EA ת
 
     return flatTerm;
 }
+
 function leaveOnlyHebrewLetteres(term){
     return term.replace(/[^\u05D0-\u05EA ]/g,'');    //remove anything other than the hebrew alpha-bet letters
     //todo: remove any single letter surrounded by 2 spaces.
@@ -89,11 +88,10 @@ function leaveOnlyHebrewLetteres(term){
 
 //Add words
 function addWords() {
-
     const date = new Date();
     for (let counter = 0; counter < seedDataArray.length; counter++) {
         (function (i) {
-            let seedBody = splitText + seedDataArray[  i ];
+            let seedBody = splitText + seedDataArray[ i ];
             seedBody = seedBody.replaceAll('> ','>&nbsp;');
             seedBody = seedBody.replaceAll(' <','&nbsp;<');
             let flatTerm = seedBody.substring(flatTextPreText.length, seedBody.indexOf(flatTextPostText));
@@ -113,7 +111,6 @@ function addWords() {
         })(counter);
     }
 }
-
 
 function deleteAllUsers(){
     mongoose.connect(process.env.MONGODB_URI ||  "mongodb://localhost:27017", {poolSize: 100});
@@ -143,7 +140,11 @@ function deleteAllWords(){
     }
 }
 
+//Start
+console.log("starting users recreate");
 recreateUsers();
+console.log("done users recreate");
+
 setTimeout(()=>{
     console.log("starting words recreate");
     recreateWords();

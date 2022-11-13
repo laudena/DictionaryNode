@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 const Promise = global.Promise;
 let searchTerminQueue = "";
-
+const SEARCH_BOX_PLACEHOLDER = "חיפוש...";
 const mapStateToProps = (state) => ({
   ...state.home,
   appName: state.common.appName,
@@ -77,7 +77,7 @@ class Home extends React.Component {
             className="search-input-text hebrew .input-lg offset-lg-8 col-lg-3"
             type="text"
             onChange={this.handleChange}
-            placeholder="התחל לכתוב כאן..."
+            placeholder={SEARCH_BOX_PLACEHOLDER}
             hidden={this.props.status !== 200}
           />
           <div

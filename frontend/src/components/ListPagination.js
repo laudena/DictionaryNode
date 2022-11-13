@@ -8,12 +8,12 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const ListPagination = (props) => {
-  if (props.wordsCount <= 10) {
+  if (props.wordsCount <= 20) {
     return null;
   }
 
   const range = [];
-  for (let i = 0; i < Math.ceil(props.wordsCount / 10); ++i) {
+  for (let i = 0; i < Math.ceil(props.wordsCount / 20); ++i) {
     range.push(i);
   }
 

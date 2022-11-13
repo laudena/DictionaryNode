@@ -49,11 +49,11 @@ router.get("/", auth.required, function(req, res, next) {
     }
 
     if (typeof req.query.search !== "undefined") {
-        query = { title_flat:  {$regex: req.query.search, $options: 'i'} };
+        query = { title_flat:  {$regex : "^" + req.query.search} };
         console.log('backend request for search: '+ req.query.search);
     }
 
-    if (req.query.search === ''){
+    if (req.query.search == undefined || req.query.search === ''){
         return res.json({
             words: [],
             wordsCount: 0
@@ -64,9 +64,9 @@ router.get("/", auth.required, function(req, res, next) {
     //wait(100);
     return Promise.all([
         Word.find(query)
+            .sort({ title_flat: "asc" })
             .limit(Number(limit))
             .skip(Number(offset))
-            .sort({ title_flat: "asc" })
             .exec(),
         Word.count(query).exec()
     ]).then(async function(results) {
