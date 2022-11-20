@@ -51,6 +51,10 @@ router.get("/", auth.required, function(req, res, next) {
     if (typeof req.query.search !== "undefined") {
         query = { title_flat:  {$regex : "^" + req.query.search} };
         console.log('backend request for search: '+ req.query.search);
+        const regexOnlyEnglish = new RegExp('^[A-Za-z]+$');
+        if (regexOnlyEnglish.test(req.query.search)){
+            query = { body:   {$regex: '.*' +  req.query.search + '.*' }};   //todo: in db, migrate the english to english_title field.
+        }
     }
 
     if (req.query.search == undefined || req.query.search === ''){
